@@ -1,3 +1,5 @@
+import re
+
 ###############################################################################
 # Hvaležni medved
 #
@@ -25,6 +27,10 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # >>> find_words(test_text, 'de')
 # {'izdere', 'debel', 'oddide', 'začudeno'}
 ###############################################################################
+def find_words(test_text, podniz):
+    vzorec = (r"\w*" + podniz + r"\w*")
+    return {m.group(0) for m in re.finditer(vzorec, test_text)}      
+    
 
 
 ###############################################################################
@@ -34,7 +40,9 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # >>> find_prefix(test_text, 'zi')
 # {'zibala', 'zibel', 'zibelko'}
 ###############################################################################
-
+def find_prefix(test_text, niz):
+    vzorec = (r"\b" + niz + r"\w*")
+    return {m.group(0) for m in re.finditer(vzorec, test_text)}
 
 ###############################################################################
 # 3) Sestavite funkcijo [find_suffix], ki vrne množico vseh besed, ki se
@@ -43,7 +51,9 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # >>> find_suffix(test_text, 'la')
 # {'zibala', 'razveselila', 'prestrašila', 'šivala', 'opazila', 'tla'}
 ###############################################################################
-
+def find_suffix(test_text, niz):
+    vzorec = (r"\w*" + niz + r"\W")
+    return {m.group(0) for m in re.finditer(vzorec, test_text)}
 
 ###############################################################################
 # 4) Sestavite funkcijo [double_letters], ki sprejme niz in vrne množico vseh
@@ -52,3 +62,6 @@ medved. Zvrhano zibelko sladkih hrušk mi je prinesel za en sam izdrt trn"."""
 # >>> double_letters('A volunteer is worth twenty pressed men.')
 # {'volunteer', 'pressed'}
 ###############################################################################
+def double_letters(test_text):
+    vzorec = (r"\w*" + r"\w\1" + r"\w*")
+    return 
